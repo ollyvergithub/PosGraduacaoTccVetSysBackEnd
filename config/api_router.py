@@ -2,7 +2,7 @@ from django.conf import settings
 from django.urls import re_path
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from vet_sys.users.api.views import UserViewSet
+from vet_sys.users.api.views import UserViewSet, FacebookLogin, GoogleLogin
 from vet_sys.pacientes.api.views import EspeciesViewSet, RacasViewSet, PortesViewSet, PacientesViewSet
 from vet_sys.clientes.api.views import ClientesViewSet
 
@@ -43,6 +43,9 @@ urlpatterns = [
    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+   re_path('rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+   re_path('rest-auth/google/', GoogleLogin.as_view(), name='google_login')
 ]
 
 urlpatterns += router.urls
