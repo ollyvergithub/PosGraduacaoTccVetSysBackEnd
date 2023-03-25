@@ -24,3 +24,6 @@ drf-spectacular==0.25.1  # https://github.com/tfranzel/drf-spectacular
 # drf-yasg - Yet another Swagger generator
 drf-yasg==1.21.5
 
+# Login Social
+dj-rest-auth==3.0.0
+
