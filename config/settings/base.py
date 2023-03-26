@@ -268,6 +268,8 @@ LOGGING = {
 
 
 # django-allauth
+
+ACCOUNT_USERNAME_REQUIRED=False
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
