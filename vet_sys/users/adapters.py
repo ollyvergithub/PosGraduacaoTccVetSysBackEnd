@@ -1,4 +1,6 @@
 from typing import Any
+import string
+import random
 
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.utils import user_email, user_field, user_username
@@ -6,6 +8,10 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.utils import valid_email_or_none
 from django.conf import settings
 from django.http import HttpRequest
+
+
+def gerar_chave(size=12, chars=string.ascii_lowercase):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 class AccountAdapter(DefaultAccountAdapter):
@@ -24,7 +30,13 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
         email = data.get('email')
         name = data.get('name')
         user = sociallogin.user
-        emailtouname = email.split('@')[0] + "_" + email.split('@')[1].split('.')[0]
+
+        # Gerando nome com strings aleatorias caso não exista email cadastrado Erro
+        if email:
+            emailtouname = email.split('@')[0] + "_" + email.split('@')[1].split('.')[0]
+        else:
+            first_name = first_name.lower() if first_name else "semprimeironome"
+            emailtouname = f"{first_name}_{gerar_chave()}"
 
         user_email(user, valid_email_or_none(email) or '')
         name_parts = (name or '').partition(' ')
