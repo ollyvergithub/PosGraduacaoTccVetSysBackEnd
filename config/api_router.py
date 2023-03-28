@@ -1,10 +1,11 @@
 from django.conf import settings
-from django.urls import re_path
+from django.urls import re_path, include
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from vet_sys.users.api.views import UserViewSet, FacebookLogin, GoogleLogin
 from vet_sys.pacientes.api.views import EspeciesViewSet, RacasViewSet, PortesViewSet, PacientesViewSet
 from vet_sys.clientes.api.views import ClientesViewSet
+from dj_rest_auth.views import LoginView, LogoutView
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -44,6 +45,10 @@ urlpatterns = [
    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
+
+   re_path('rest-auth/', include('dj_rest_auth.urls')),
+   re_path('rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+   re_path('rest-auth/login/', LoginView.as_view()),
    re_path('rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
    re_path('rest-auth/google/', GoogleLogin.as_view(), name='google_login')
 ]
