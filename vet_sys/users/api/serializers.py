@@ -18,8 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         # fields = '__all__'
-        fields = ["id", "is_superuser", "username", "email", "is_staff", "is_active", "name", "permissoes",
-                  "is_superuser", "url"]
+        fields = ["id", "is_superuser", "username", "email", "is_staff", "is_active", "name", "permissoes"]
 
         extra_kwargs = {
             "url": {"view_name": "api:user-detail", "lookup_field": "username"}
