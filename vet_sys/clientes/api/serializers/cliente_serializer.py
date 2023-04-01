@@ -10,7 +10,7 @@ class ClienteSerializer(serializers.ModelSerializer):
         model = Cliente
         fields = (
         'uuid', 'nome', 'cpf', 'sexo', 'paciente', 'tipo_logradouro', 'logradouro', 'numero', 'bairro', 'complemento', 'cep', 'ddd',
-        'telefone', 'ddd_segundo_telefone', 'segundo_telefone', 'data_de_nascimento', 'email')
+        'telefone', 'ddd_segundo_telefone', 'segundo_telefone', 'data_de_nascimento', 'email', 'descricao')
 
 
 class ClienteLookupSerializer(serializers.ModelSerializer):
@@ -19,4 +19,4 @@ class ClienteLookupSerializer(serializers.ModelSerializer):
         model = Cliente
         fields = (
         'uuid', 'nome', 'cpf', 'sexo', 'tipo_logradouro', 'logradouro', 'numero', 'bairro', 'complemento', 'cep', 'ddd',
-        'telefone', 'ddd_segundo_telefone', 'segundo_telefone', 'data_de_nascimento', 'email')
+        'telefone', 'ddd_segundo_telefone', 'segundo_telefone', 'data_de_nascimento', 'email', 'descricao')

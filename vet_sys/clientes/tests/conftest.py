@@ -7,7 +7,7 @@ pytestmark = pytest.mark.django_db
 
 
 @pytest.fixture
-def usuario_permissao_atribuicao():
+def usuario_permissao_atribuicao_clientes():
     from django.contrib.auth import get_user_model
     senha = 'Sgp0418'
     login = '7210418'
@@ -19,7 +19,7 @@ def usuario_permissao_atribuicao():
 
 
 @pytest.fixture
-def especie_canina():
+def especie_canina_clientes():
     return baker.make(
         'Especie',
         nome='Canina',
@@ -28,7 +28,7 @@ def especie_canina():
 
 
 @pytest.fixture
-def porte_mini():
+def porte_mini_clientes():
     return baker.make(
         'Porte',
         porte='Mini',
@@ -37,7 +37,7 @@ def porte_mini():
 
 
 @pytest.fixture
-def raca_schnauzer():
+def raca_schnauzer_clientes():
     return baker.make(
         'Raca',
         nome='Schnauzer',
@@ -46,20 +46,20 @@ def raca_schnauzer():
 
 
 @pytest.fixture
-def paciente_pitoco(
-        especie_canina,
-        raca_schnauzer,
-        porte_mini,
-        cliente_ollyver
+def paciente_pitoco_clientes(
+        especie_canina_clientes,
+        raca_schnauzer_clientes,
+        porte_mini_clientes,
+        cliente_ollyver_clientes
 
 ):
     return baker.make(
         'Paciente',
         nome='Pitoco',
-        tutor=cliente_ollyver,
-        especie=especie_canina,
-        raca=raca_schnauzer,
-        porte=porte_mini,
+        tutor=cliente_ollyver_clientes,
+        especie=especie_canina_clientes,
+        raca=raca_schnauzer_clientes,
+        porte=porte_mini_clientes,
         sexo='Macho',
         data_nasc=date(2021, 6, 16),
         pelagem="Curta",
@@ -69,18 +69,18 @@ def paciente_pitoco(
 
 
 @pytest.fixture
-def paciente_lorita(
-        especie_canina,
-        raca_schnauzer,
-        porte_mini,
-        cliente_ollyver,
+def paciente_lorita_clientes(
+        especie_canina_clientes,
+        raca_schnauzer_clientes,
+        porte_mini_clientes,
+        cliente_ollyver_clientes,
 ):
     return baker.make(
         'Paciente',
-        tutor=cliente_ollyver,
-        especie=especie_canina,
-        raca=raca_schnauzer,
-        porte=porte_mini,
+        tutor=cliente_ollyver_clientes,
+        especie=especie_canina_clientes,
+        raca=raca_schnauzer_clientes,
+        porte=porte_mini_clientes,
         sexo='Macho',
         data_nasc=date(2021, 6, 16),
         pelagem="Curta",
@@ -89,7 +89,7 @@ def paciente_lorita(
 
 
 @pytest.fixture
-def cliente_ollyver():
+def cliente_ollyver_clientes():
     return baker.make(
         'Cliente',
         nome='Ollyver Ottoboni',
@@ -99,13 +99,14 @@ def cliente_ollyver():
 
 
 @pytest.fixture
-def cliente_susi(
-        paciente_pitoco,
+def cliente_susi_clientes(
+        paciente_pitoco_clientes,
 ):
     return baker.make(
         'Cliente',
         nome='Susi Nishimura',
         cpf='433.568.660-95',
         sexo='Feminino',
-        paciente=[paciente_pitoco],
+        paciente=[paciente_pitoco_clientes],
+        descricao='Esta é a descrição do cliente Susi Nishimura',
     )
