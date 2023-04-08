@@ -41,6 +41,8 @@ class Paciente(TemNome, Descritivel, ModeloBase):
 
     cor = models.CharField("Cor", max_length=100, blank=True, default="")
 
+    peso = models.FloatField("Peso", null=True, blank=True)
+
     class Meta:
         verbose_name = "Paciente"
         verbose_name_plural = "Pacientes"

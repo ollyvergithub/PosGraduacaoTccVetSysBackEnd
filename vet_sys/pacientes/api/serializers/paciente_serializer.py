@@ -31,7 +31,7 @@ class PacienteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Paciente
-        fields = ('uuid', 'nome', 'especie', 'raca', 'porte', 'sexo', 'tutor', 'data_nasc', 'pelagem', 'cor', 'descricao')
+        fields = ('id', 'uuid', 'nome', 'especie', 'raca', 'porte', 'sexo', 'peso',  'tutor', 'data_nasc', 'pelagem', 'cor', 'descricao')
 
 
 class PacienteLookupSerializer(serializers.ModelSerializer):
@@ -41,6 +41,6 @@ class PacienteLookupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Paciente
-        fields = ('uuid', 'nome', 'especie', 'raca', 'porte', 'sexo', 'data_nasc', 'pelagem', 'cor', 'descricao')
+        fields = ('id', 'uuid', 'nome', 'especie', 'raca', 'porte', 'sexo', 'peso', 'data_nasc', 'pelagem', 'cor', 'descricao')
 
 

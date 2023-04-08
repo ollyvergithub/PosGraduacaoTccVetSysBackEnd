@@ -77,6 +77,7 @@ class PacienteAdmin(admin.ModelAdmin):
                     'porte',
                     'sexo',
                     'tutor',
+                    'peso',
                     'data_nasc',
                     'pelagem',
                     'cor',
