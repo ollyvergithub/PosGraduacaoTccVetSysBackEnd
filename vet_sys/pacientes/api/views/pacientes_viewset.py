@@ -10,7 +10,7 @@ class PacientesViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     lookup_field = 'uuid'
-    queryset = Paciente.objects.all()
+    queryset = Paciente.objects.all().order_by('id',)
     serializer_class = PacienteSerializer
 
     def get_queryset(self):

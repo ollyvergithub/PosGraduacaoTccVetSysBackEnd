@@ -11,5 +11,5 @@ class PorteSerializer(serializers.ModelSerializer):
 class PorteLookupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Porte
-        fields = ('uuid', 'porte', 'descricao')
+        fields = ('uuid', 'porte', 'descricao', 'get_porte_display')
 
