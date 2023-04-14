@@ -29,3 +29,6 @@ dj-rest-auth==3.0.0
 
 # Weasyprint
 weasyprint==58.1
+
+# Matplotlib
+matplotlib==3.7.1

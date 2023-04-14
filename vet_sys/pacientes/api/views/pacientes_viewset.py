@@ -8,9 +8,12 @@ from rest_framework.decorators import action
 
 from ..serializers.paciente_serializer import PacienteSerializer
 from ...models import Paciente
-from django.template.loader import get_template
 from django.template.loader import render_to_string
 from weasyprint import HTML
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+
 
 
 class PacientesViewSet(viewsets.ModelViewSet):
@@ -63,4 +66,28 @@ class PacientesViewSet(viewsets.ModelViewSet):
         )
         response['Content-Disposition'] = 'filename="relatorio-pacientes.pdf"'
 
+        return response
+
+    @action(
+        detail=False,
+        methods=['get'],
+        url_path='gerar-estatisticas',
+        permission_classes=[IsAuthenticated],
+        authentication_classes=[TokenAuthentication]
+    )
+    def gerar_estatisticas(self, request):
+        # Data for plotting
+        t = np.arange(0.0, 2.0, 0.01)
+        s = 1 + np.sin(2 * np.pi * t)
+
+        fig, ax = plt.subplots()
+        ax.plot(t, s)
+
+        ax.set(xlabel='time (s)', ylabel='voltage (mV)',
+               title='About as simple as it gets, folks')
+        ax.grid()
+
+        response = HttpResponse(content_type='image/png')
+        canvas = FigureCanvasAgg(fig)
+        canvas.print_png(response)
         return response
