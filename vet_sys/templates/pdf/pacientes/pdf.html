@@ -1,20 +1,136 @@
 <!doctype html>
 <html lang="pt-br">
 {% load static %}
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Relatório de Pacientes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!--<link href="{{ base_static_url }}/css/pdf-relatorio-pacientes.css" rel="stylesheet">-->
     <link href="{% static 'css/pdf-relatorio-pacientes.css' %}" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Hello, world!</h1>
-      <h2>Bem vindo {{usuario_logado}}</h2>
-    </div>
+</head>
+<body>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-  </body>
+{# ************************* Cabecalho das páginas *************************  #}
+<header>
+    <div class="d-flex">
+        <div class="col-4 d-flex align-items-center">
+            <img src="{% static '/images/logo-menu-superior.png' %}" alt="logo">
+        </div>
+        <div class="col-8 d-flex align-items-center justify-content-center text-center">
+            <h2 class="mb-0">Relatório de Pacientes</h2>
+        </div>
+    </div>
+</header>
+{# ************************* Fim Cabecalho das páginas *************************  #}
+
+{# ************************* Rodape ************************* #}
+<p id="nome-associacao-rodape" class="font-10">
+    <i>Documento gerado por {{ usuario_logado }}, via Vet Sys em {{ data_atual }}</i>
+</p>
+{# ************************* Fim Rodape ************************* #}
+
+<section class="conteudo mt-0">
+
+    <section class="row">
+        {% if pacientes %}
+            <table class="table table-bordered">
+                {% for paciente in pacientes %}
+                    <thead class="table-light">
+                    <tr>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Nome</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Espécie</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Raça</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Data de nascimento</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Peso KG</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Porte</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Cor</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Cliente</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Pelagem</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Sexo</strong></p>
+                        </th>
+                        <th class="th-fundo-branco py-2 pl-2">
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Cadastrado</strong></p>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            {{ paciente.nome }}
+                        <td>
+                            {{ paciente.especie.nome }}
+                        </td>
+                        <td>
+                            {{ paciente.raca.nome }}
+                        </td>
+                        <td>
+                            {{ paciente.data_nasc }}
+                        </td>
+                        <td>
+                            {{ paciente.peso }}
+                        </td>
+                        <td>
+                            {{ paciente.porte }}
+                        </td>
+                        <td>
+                            {{ paciente.cor }}
+                        </td>
+                        <td>
+                            {{ paciente.tutor.nome }}
+                        </td>
+                        <td>
+                            {{ paciente.pelagem }}
+                        </td>
+                        <td>
+                            {{ paciente.sexo }}
+                        </td>
+                        <td>
+                            {{ paciente.criado_em }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <p class="mb-0" style="font-weight: bold">Observações sobre o
+                                paciente: {{ paciente.descricao }}</p>
+                        </td>
+                    </tr>
+                    <tr style="border: none !important;">
+                        <td colspan="11" class="py-2" style="border: none !important;">
+
+                        </td>
+                    </tr>
+                    </tbody>
+
+                {% endfor %}
+
+            </table>
+        {% endif %}
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
 </html>
