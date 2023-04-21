@@ -1,7 +1,6 @@
-from datetime import date, datetime
+from datetime import date
 
 import matplotlib
-from django.db.models import Count
 from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
@@ -13,12 +12,7 @@ from ...models import Paciente
 from django.template.loader import render_to_string
 from weasyprint import HTML
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from django.db.models.functions import ExtractMonth
-from itertools import groupby
-import calendar
-from django.db.models import Case, When, Value, CharField
 from matplotlib.ticker import MaxNLocator
 
 
@@ -53,8 +47,8 @@ class PacientesViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=['post'],
         url_path='gerar-relatorio-pdf',
-        permission_classes=[AllowAny],
-        # authentication_classes=[TokenAuthentication]
+        permission_classes=[IsAuthenticated],
+        authentication_classes=[TokenAuthentication]
     )
     def gerar_relatorio_pdf(self, request):
         from vet_sys.pacientes.api.serializers.validation_serializers import GerarRelatorioPdfValidateSerializer
