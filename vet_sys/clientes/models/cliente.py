@@ -25,7 +25,9 @@ class Cliente(TemNome, Descritivel, ModeloBase):
         'Sexo',
         max_length=50,
         choices=SEXO_CHOICES,
-        default=SEXO_FEMININO
+        default=SEXO_FEMININO,
+        blank=True,
+        null=True,
     )
 
     paciente = models.ManyToManyField("pacientes.Paciente", blank=True, related_name='tutores_do_paciente')

@@ -11,7 +11,7 @@ class GerarRelatorioPdfValidateSerializer(serializers.Serializer): # noqa
         for uuid in value:
             try:
                 Administrativo.objects.get(uuid=uuid)
-            except Paciente.DoesNotExist: # noqa
+            except Administrativo.DoesNotExist: # noqa
                 raise serializers.ValidationError(f"Não foi encontrado um Funcionário Administrativo para o uuid {uuid}.")
 
         return value

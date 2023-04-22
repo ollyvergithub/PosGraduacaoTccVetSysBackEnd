@@ -5,8 +5,8 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 from vet_sys.users.api.views import UserViewSet, FacebookLogin, GoogleLogin
 from vet_sys.pacientes.api.views import EspeciesViewSet, RacasViewSet, PortesViewSet, PacientesViewSet
 from vet_sys.clientes.api.views import ClientesViewSet
-from vet_sys.funcionarios.api.views import AdministrativosViewSet
-from dj_rest_auth.views import LoginView, LogoutView
+from vet_sys.funcionarios.api.views import AdministrativosViewSet, VeterinariosViewSet
+from dj_rest_auth.views import LoginView
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -38,6 +38,7 @@ router.register("portes", PortesViewSet)
 router.register("pacientes", PacientesViewSet)
 router.register("clientes", ClientesViewSet)
 router.register("funcionarios", AdministrativosViewSet)
+router.register("veterinarios", VeterinariosViewSet)
 
 
 app_name = "api"

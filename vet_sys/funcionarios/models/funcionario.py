@@ -24,7 +24,9 @@ class Funcionario(TemNome, Descritivel, ModeloBase):
         'Sexo',
         max_length=50,
         choices=SEXO_CHOICES,
-        default=SEXO_FEMININO
+        default=SEXO_FEMININO,
+        blank=True,
+        null=True,
     )
 
     tipo_logradouro = models.CharField('Tipo de Logradouro', max_length=50, blank=True, null=True, default='')

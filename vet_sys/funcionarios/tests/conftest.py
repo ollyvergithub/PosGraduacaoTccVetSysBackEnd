@@ -1,5 +1,3 @@
-from datetime import date
-
 import pytest
 from model_bakery import baker
 
@@ -38,5 +36,17 @@ def funcionario_administrativo_ollyver():
         rg='8.961.424-0',
         sexo='Masculino',
         descricao='Esta é a descrição do funcionário administrativo Ollyver Ottoboni',
+    )
+
+
+@pytest.fixture
+def funcionario_veterinario_susi():
+    return baker.make(
+        'Veterinario',
+        nome='Susi Hiromi Nishimura',
+        cpf='433.568.660-95',
+        crmv='6987-SP',
+        sexo='Masculino',
+        descricao='Esta é a descrição do funcionário veterinário Susi Hiromi Nishimura',
     )
 

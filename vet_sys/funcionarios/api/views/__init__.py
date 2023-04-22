@@ -1,1 +1,2 @@
 from .administrativos_viewset import AdministrativosViewSet
+from .veterinario_viewset import VeterinariosViewSet
