@@ -92,6 +92,7 @@ LOCAL_APPS = [
     "vet_sys.pacientes",
     "vet_sys.clientes",
     "vet_sys.pessoas",
+    "vet_sys.funcionarios",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

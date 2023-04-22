@@ -2,7 +2,7 @@ from datetime import date
 
 from django.http import HttpResponse
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
 from ..serializers.cliente_serializer import ClienteSerializer
@@ -34,7 +34,6 @@ class ClientesViewSet(viewsets.ModelViewSet):
         if cpf:
             qs = qs.filter(cpf__unaccent__icontains=cpf)
 
-
         telefone = self.request.query_params.get('telefone')
         if telefone:
             qs = qs.filter(telefone__unaccent__icontains=telefone)
@@ -49,7 +48,7 @@ class ClientesViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=['post'],
         url_path='gerar-relatorio-pdf',
-        permission_classes=[AllowAny],
+        permission_classes=[IsAuthenticated],
         authentication_classes=[TokenAuthentication]
     )
     def gerar_relatorio_pdf(self, request):
