@@ -16,7 +16,7 @@ class Paciente(TemNome, Descritivel, ModeloBase):
         (SEXO_FEMEA, SEXO_NOMES[SEXO_FEMEA]),
     )
 
-    tutor = models.ForeignKey('clientes.Cliente', on_delete=models.PROTECT,
+    tutor = models.ForeignKey('clientes.Cliente', on_delete=models.SET_NULL,
                               related_name='pacientes_do_cliente', verbose_name="Tutor", null=True, blank=True)
 
     especie = models.ForeignKey('Especie', on_delete=models.PROTECT,
