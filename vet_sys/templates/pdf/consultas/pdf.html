@@ -5,11 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Relatório de Clientes</title>
+    <title>Relatório de Consultas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <!--<link href="{{ base_static_url }}/css/pdf-relatorio-clientes.css" rel="stylesheet">-->
-    <link href="{% static 'css/pdf-relatorio-clientes.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/pdf-relatorio-consultas.css' %}" rel="stylesheet">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
             <img src="{% static '/images/logo-menu-superior.png' %}" alt="logo">
         </div>
         <div class="col-8 d-flex align-items-center justify-content-center text-center">
-            <h2 class="mb-0">Relatório de Clientes</h2>
+            <h2 class="mb-0">Relatório de Consultas</h2>
         </div>
     </div>
 </header>
@@ -35,33 +35,25 @@
 <section class="conteudo mt-0">
 
     <section class="row">
-        {% if clientes %}
+        {% if consultas %}
             <table class="table table-bordered">
-                {% for cliente in clientes %}
+                {% for consulta in consultas %}
                     <thead class="table-light">
                     <tr>
                         <th class="th-fundo-branco py-2 pl-2">
-                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Nome</strong></p>
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Data da Consulta</strong></p>
                         </th>
                         <th class="th-fundo-branco py-2 pl-2">
-                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>CPF</strong></p>
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Paciente</strong></p>
                         </th>
                         <th class="th-fundo-branco py-2 pl-2">
-                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Sexo</strong></p>
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Cliente</strong></p>
                         </th>
                         <th class="th-fundo-branco py-2 pl-2">
-                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Pacientes</strong></p>
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Veterinário</strong></p>
                         </th>
                         <th class="th-fundo-branco py-2 pl-2">
-                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Data de nascimento</strong></p>
-                        </th>
-
-                        <th class="th-fundo-branco py-2 pl-2">
-                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Telefone</strong></p>
-                        </th>
-
-                        <th class="th-fundo-branco py-2 pl-2">
-                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Endereço</strong></p>
+                            <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Tipo de consulta</strong></p>
                         </th>
                         <th class="th-fundo-branco py-2 pl-2">
                             <p class="font-14 titulo mb-0 mt-0 px-0"><strong>Cadastrado em</strong></p>
@@ -71,44 +63,32 @@
                     <tbody>
                     <tr>
                         <td>
-                            {{ cliente.nome }}
-                        <td>
-                            {{ cliente.cpf }}
+                            {{ consulta.data_da_consulta|formata_data }}
                         </td>
                         <td>
-                            {{ cliente.sexo }}
+                            <p class="mb-0">{{ consulta.paciente.nome }}</p>
                         </td>
                         <td>
-                            {% for paciente in cliente.paciente_detail %}
-                                <p class="mb-0">{{ paciente.nome }}</p>
-                            {% endfor %}
+                            <p class="mb-0">{{ consulta.cliente.nome }}</p>
                         </td>
                         <td>
-                            {{ cliente.data_de_nascimento|formata_data }}
+                            <p class="mb-0">{{ consulta.veterinario.nome }}</p>
                         </td>
-
                         <td>
-                            ({{ cliente.ddd }}) {{ cliente.telefone }}
+                            <p class="mb-0">{{ consulta.tipo_de_consulta }}</p>
                         </td>
 
                         <td>
-                            <p class="mb-0">{{ cliente.tipo_logradouro }}: {{ cliente.logradouro }}</p>
-                            <p class="mb-0">Nº {{ cliente.numero }}, Bairro: {{ cliente.bairro }}</p>
-                            <p class="mb-0">CEP: {{ cliente.cep }}</p>
-                        </td>
-
-                        <td>
-                            {{ cliente.criado_em|formata_data_e_hora }}
+                            {{ consulta.criado_em}}
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="8">
-                            <p class="mb-0" style="font-weight: bold">Observações sobre o
-                                cliente: {{ cliente.descricao }}</p>
+                        <td colspan="6">
+                            <p class="mb-0" style="font-weight: bold">Ficha Clínica: {{ consulta.ficha_clinica }}</p>
                         </td>
                     </tr>
                     <tr style="border: none !important;">
-                        <td colspan="8" class="py-2" style="border: none !important;">
+                        <td colspan="6" class="py-2" style="border: none !important;">
 
                         </td>
                     </tr>

@@ -13,7 +13,7 @@ class GerarRelatorioPdfValidateSerializer(serializers.Serializer): # noqa
         for uuid in value:
             try:
                 Cliente.objects.get(uuid=uuid)
-            except Paciente.DoesNotExist: # noqa
+            except Cliente.DoesNotExist: # noqa
                 raise serializers.ValidationError(f"Não foi encontrado um Cliente para o uuid {uuid}.")
 
         return value
