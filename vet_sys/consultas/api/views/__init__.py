@@ -1,0 +1,1 @@
+from .consultas_viewset import ConsultasViewSet

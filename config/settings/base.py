@@ -83,7 +83,8 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'corsheaders'
+    'corsheaders',
+    'rangefilter',
     # "drf_spectacular",
 ]
 
@@ -93,6 +94,7 @@ LOCAL_APPS = [
     "vet_sys.clientes",
     "vet_sys.pessoas",
     "vet_sys.funcionarios",
+    "vet_sys.consultas",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

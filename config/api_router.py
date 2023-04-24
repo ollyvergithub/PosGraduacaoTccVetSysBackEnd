@@ -6,6 +6,7 @@ from vet_sys.users.api.views import UserViewSet, FacebookLogin, GoogleLogin
 from vet_sys.pacientes.api.views import EspeciesViewSet, RacasViewSet, PortesViewSet, PacientesViewSet
 from vet_sys.clientes.api.views import ClientesViewSet
 from vet_sys.funcionarios.api.views import AdministrativosViewSet, VeterinariosViewSet
+from vet_sys.consultas.api.views import ConsultasViewSet
 from dj_rest_auth.views import LoginView
 
 from rest_framework import permissions
@@ -39,6 +40,7 @@ router.register("pacientes", PacientesViewSet)
 router.register("clientes", ClientesViewSet)
 router.register("funcionarios", AdministrativosViewSet)
 router.register("veterinarios", VeterinariosViewSet)
+router.register("consultas", ConsultasViewSet)
 
 
 app_name = "api"

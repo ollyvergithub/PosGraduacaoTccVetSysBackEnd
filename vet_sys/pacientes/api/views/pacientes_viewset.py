@@ -1,19 +1,19 @@
 from datetime import date
 
 import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+from matplotlib.ticker import MaxNLocator
 from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 
 from ..serializers.paciente_serializer import PacienteSerializer
 from ...models import Paciente
 from django.template.loader import render_to_string
 from weasyprint import HTML
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-from matplotlib.ticker import MaxNLocator
 
 
 class PacientesViewSet(viewsets.ModelViewSet):
