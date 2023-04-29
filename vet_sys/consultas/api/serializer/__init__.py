@@ -1,0 +1,2 @@
+from .consulta_serializer import ConsultaSerializer
+from .consulta_serializer import ConsultaHistoricoDeConsultasSerializer

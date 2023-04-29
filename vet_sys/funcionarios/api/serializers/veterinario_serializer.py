@@ -2,6 +2,12 @@ from rest_framework import serializers
 from ...models import Veterinario
 
 
+class VeterinarioHistoricoDeConsultasSerializser(serializers.ModelSerializer):
+    class Meta:
+        model = Veterinario
+        fields = ('nome', 'cpf', 'crmv',)
+
+
 class VeterinarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Veterinario

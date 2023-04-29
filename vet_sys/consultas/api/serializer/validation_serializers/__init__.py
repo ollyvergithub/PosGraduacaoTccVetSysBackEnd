@@ -1,1 +1,1 @@
-from .consulta_validate_serializer import GerarRelatorioPdfValidateSerializer
+from .consulta_validate_serializer import GerarRelatorioPdfValidateSerializer, ConsultaPacienteValidateSerializer

@@ -1,15 +1,19 @@
 from datetime import date
 
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework import status
 
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+
+from vet_sys.pacientes.models import Paciente
 from ...models.consulta import Consulta
 from rest_framework.decorators import action
 from django.template.loader import render_to_string
 from weasyprint import HTML
-from ..serializer.consulta_serializer import ConsultaSerializer
+from ..serializer.consulta_serializer import ConsultaSerializer, ConsultaHistoricoDeConsultasSerializer
 
 
 class ConsultasViewSet(viewsets.ModelViewSet):
@@ -74,3 +78,31 @@ class ConsultasViewSet(viewsets.ModelViewSet):
         response['Content-Disposition'] = 'filename="relatorio-consultas.pdf"'
 
         return response
+
+    @action(
+        detail=False,
+        methods=['get'],
+        url_path='historico-de-consultas-por-paciente',
+        permission_classes=[IsAuthenticated],
+        authentication_classes=[TokenAuthentication]
+    )
+    def historico_de_consultas_por_paciente(self, request):
+        from vet_sys.consultas.api.serializer.validation_serializers.consulta_validate_serializer import ConsultaPacienteValidateSerializer
+
+        query = ConsultaPacienteValidateSerializer(data=self.request.query_params)
+        query.is_valid(raise_exception=True)
+
+        paciente_uuid = request.query_params.get('paciente')
+        consulta_uuid = request.query_params.get('consulta')
+
+        paciente = Paciente.objects.get(uuid=paciente_uuid)
+
+        if consulta_uuid:
+            consultas = Consulta.objects.filter(paciente=paciente).order_by('-data_da_consulta').exclude(uuid=consulta_uuid)
+        else:
+            consultas = Consulta.objects.filter(paciente=paciente).order_by('-data_da_consulta')
+
+        return Response(ConsultaHistoricoDeConsultasSerializer(consultas, many=True).data)
+
+
+

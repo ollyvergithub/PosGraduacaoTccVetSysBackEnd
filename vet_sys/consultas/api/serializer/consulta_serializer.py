@@ -6,7 +6,28 @@ from vet_sys.clientes.models import Cliente
 from vet_sys.funcionarios.models import Veterinario
 from vet_sys.pacientes.api.serializers import PacienteLookupSerializer
 from vet_sys.clientes.api.serializers import ClienteLookupSerializer
-from vet_sys.funcionarios.api.serializers import VeterinarioSerializer
+from vet_sys.funcionarios.api.serializers import VeterinarioSerializer, VeterinarioHistoricoDeConsultasSerializser
+
+
+class ConsultaHistoricoDeConsultasSerializer(serializers.ModelSerializer):
+    veterinario = VeterinarioHistoricoDeConsultasSerializser(read_only=True)
+
+    data_da_consulta = serializers.SerializerMethodField('get_data_da_consulta')
+
+    def get_data_da_consulta(self, obj):
+        data_da_consulta = obj.data_da_consulta
+        return data_da_consulta.strftime("%d/%m/%Y") if obj.data_da_consulta else None
+
+    class Meta:
+        model = Consulta
+        fields = (
+            'id',
+            'uuid',
+            'data_da_consulta',
+            'veterinario',
+            'tipo_de_consulta',
+            'ficha_clinica',
+        )
 
 
 class ConsultaSerializer(serializers.ModelSerializer):
