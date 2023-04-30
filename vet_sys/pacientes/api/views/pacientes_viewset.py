@@ -80,6 +80,71 @@ class PacientesViewSet(viewsets.ModelViewSet):
     @action(
         detail=False,
         methods=['get'],
+        url_path='gerar-estatisticas-por-ano',
+        permission_classes=[IsAuthenticated],
+        authentication_classes=[TokenAuthentication]
+    )
+    def gerar_estatisticas_por_ano(self, request):
+        ano = request.query_params.get('ano')
+
+        quantidade_de_cadastros_por_mes = []
+        for i in range(1, 13):
+            result = Paciente.objects.filter(criado_em__month=i, criado_em__year=ano).count()
+            quantidade_de_cadastros_por_mes.append(result)
+
+        fig, ax = plt.subplots()
+
+        # Convertendo valores eixo y (Quantidade para inteiro)
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+        meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        ax.bar(meses, quantidade_de_cadastros_por_mes)
+
+        ax.set(xlabel='Meses', ylabel='Quantidade', title=f'Número de pacientes por mês em {ano}')
+        ax.grid()
+
+        response = HttpResponse(content_type='image/png')
+        canvas = FigureCanvasAgg(fig)
+        canvas.print_png(response)
+        matplotlib.pyplot.close()
+        return response
+
+    @action(
+        detail=False,
+        methods=['get'],
+        url_path='gerar-estatisticas-por-mes-e-ano',
+        permission_classes=[IsAuthenticated],
+        authentication_classes=[TokenAuthentication]
+    )
+    def gerar_estatisticas_por_mes_e_ano(self, request):
+
+        ano = request.query_params.get('ano')
+        mes = request.query_params.get('mes')
+
+        result = Paciente.objects.filter(criado_em__month=mes, criado_em__year=ano).count()
+
+        fig, ax = plt.subplots()
+
+        # Convertendo valores eixo y (Quantidade para inteiro)
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+        meses = {"01": "Jan", "02": "Fev", "03": "Mar", "04": "Abr", "05": "Mai", "06": "Jun", "07": "Jul", "08": "Ago",
+                 "09": "Set", "10": "Out", "11": "Nov", "12": "Dez"}
+
+        ax.bar(meses[mes], result)
+
+        ax.set(xlabel='Mes', ylabel='Quantidade', title=f"Número de pacientes em {meses[mes]} de {ano}")
+        ax.grid()
+
+        response = HttpResponse(content_type='image/png')
+        canvas = FigureCanvasAgg(fig)
+        canvas.print_png(response)
+        matplotlib.pyplot.close()
+        return response
+
+    @action(
+        detail=False,
+        methods=['get'],
         url_path='gerar-estatisticas',
         permission_classes=[IsAuthenticated],
         authentication_classes=[TokenAuthentication]
