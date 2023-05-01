@@ -1,6 +1,34 @@
 from django.contrib import admin
+from rangefilter.filters import DateRangeFilter
 
-from .models import Administrativo, Veterinario
+from .models import Administrativo, Veterinario, Dependente
+
+
+@admin.register(Dependente)
+class DependenteAdmin(admin.ModelAdmin):
+    list_display = ('uuid', 'nome', 'sexo', 'data_de_nascimento', 'funcionario')
+    search_fields = ('nome',)
+    list_filter = (
+        'nome',
+        'sexo',
+        ('data_de_nascimento', DateRangeFilter),
+        'funcionario'
+    )
+    readonly_fields = ('uuid', 'id')
+
+    fieldsets = (
+        ('', {
+            'fields':
+                (
+                    'nome',
+                    'data_de_nascimento',
+                    'sexo',
+                    'funcionario',
+                    'uuid',
+                    'id'
+                )
+        }),
+    )
 
 
 @admin.register(Administrativo)

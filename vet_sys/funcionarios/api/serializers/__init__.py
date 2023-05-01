@@ -1,2 +1,3 @@
-from .administrativo_serializer import AdministrativoSerializer
+from .administrativo_serializer import AdministrativoSerializer, AdministrativoLookupSerializer, AdministrativoCreateSerializer
 from .veterinario_serializer import VeterinarioSerializer, VeterinarioHistoricoDeConsultasSerializser
+from .dependente_serializer import DependenteSerializer, DependenteCreateSerializer

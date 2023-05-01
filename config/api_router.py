@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import re_path, include
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
+from vet_sys.funcionarios.api.views.dependentes_viewset import DependentesViewSet
 from vet_sys.users.api.views import UserViewSet, FacebookLogin, GoogleLogin
 from vet_sys.pacientes.api.views import EspeciesViewSet, RacasViewSet, PortesViewSet, PacientesViewSet
 from vet_sys.clientes.api.views import ClientesViewSet
@@ -40,6 +41,7 @@ router.register("pacientes", PacientesViewSet)
 router.register("clientes", ClientesViewSet)
 router.register("funcionarios", AdministrativosViewSet)
 router.register("veterinarios", VeterinariosViewSet)
+router.register("dependentes", DependentesViewSet)
 router.register("consultas", ConsultasViewSet)
 
 

@@ -25,6 +25,9 @@ drf-spectacular==0.25.1  # https://github.com/tfranzel/drf-spectacular
 # drf-yasg - Yet another Swagger generator
 drf-yasg==1.21.5
 
+# Para filtros no DRF
+django-filter-23.2
+
 # Login Social
 dj-rest-auth==3.0.0
 

@@ -5,15 +5,15 @@ from vet_sys.funcionarios.api.serializers.dependente_serializer import Dependent
 
 
 class AdministrativoCreateSerializer(serializers.ModelSerializer):
-    dependentes_do_funcionario = DependenteCreateSerializer(many=True, required=False)
+    dependentes = DependenteCreateSerializer(many=True, required=False)
 
     def create(self, validated_data):
-        dependentes_do_funcionario = validated_data.pop('dependentes_do_funcionario')
+        dependentes = validated_data.pop('dependentes')
 
         administrativo = Administrativo.objects.create(**validated_data)
 
         dependentes_lista = []
-        for dependente in dependentes_do_funcionario:
+        for dependente in dependentes:
             dependente_object = DependenteCreateSerializer().create(dependente)
             dependentes_lista.append(dependente_object)
 
@@ -23,7 +23,7 @@ class AdministrativoCreateSerializer(serializers.ModelSerializer):
         return administrativo
 
     def update(self, instance, validated_data):
-        dependentes_do_funcionario = validated_data.pop('dependentes_do_funcionario')
+        dependentes = validated_data.pop('dependentes')
 
         # Atualiza campos do Funcionario
         Administrativo.objects.filter(uuid=instance.uuid).update(**validated_data)
@@ -31,7 +31,7 @@ class AdministrativoCreateSerializer(serializers.ModelSerializer):
         # Atualiza os dependentes
         keep_dependentes = []  # dependentes que serão mantidos. Qualquer um que não estiver na lista será apagado.
 
-        for dependente in dependentes_do_funcionario:
+        for dependente in dependentes:
             if "uuid" in dependente.keys():
                 if Dependente.objects.filter(uuid=dependente['uuid']).exists():
                     Dependente.objects.filter(uuid=dependente["uuid"]).update(**dependente)

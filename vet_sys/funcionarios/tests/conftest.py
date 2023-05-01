@@ -1,3 +1,5 @@
+from datetime import date
+
 import pytest
 from model_bakery import baker
 
@@ -50,3 +52,15 @@ def funcionario_veterinario_susi():
         descricao='Esta é a descrição do funcionário veterinário Susi Hiromi Nishimura',
     )
 
+
+@pytest.fixture
+def dependente_01(
+        funcionario_administrativo_ollyver
+):
+    return baker.make(
+        'Dependente',
+        nome='Dependente funcionario administrativo Ollyver',
+        data_de_nascimento=date(2023, 4, 30),
+        sexo="MASCULINO",
+        funcionario=funcionario_administrativo_ollyver
+    )

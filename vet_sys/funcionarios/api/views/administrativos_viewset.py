@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from vet_sys.funcionarios.models.administrativo import Administrativo
-from vet_sys.funcionarios.api.serializers.administrativo_serializer import AdministrativoSerializer
+from vet_sys.funcionarios.api.serializers.administrativo_serializer import AdministrativoSerializer, AdministrativoCreateSerializer
 from rest_framework.decorators import action
 from django.template.loader import render_to_string
 from weasyprint import HTML
@@ -37,6 +37,14 @@ class AdministrativosViewSet(viewsets.ModelViewSet):
             qs = qs.filter(telefone__unaccent__icontains=telefone)
 
         return qs
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return AdministrativoSerializer
+        elif self.action == 'list':
+            return AdministrativoSerializer
+        else:
+            return AdministrativoCreateSerializer
 
     @action(
         detail=False,

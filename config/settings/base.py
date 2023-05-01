@@ -84,6 +84,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'corsheaders',
+    "django_filters",
     'rangefilter',
     # "drf_spectacular",
 ]
