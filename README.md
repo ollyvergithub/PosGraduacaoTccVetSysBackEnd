@@ -1,6 +1,6 @@
 # Vet Sys
 
-## Repositório utilizado para o BackEnd da aplicação Vet Sys. Sistema de Gerenciamento de Clínicas Veterinárias.
+## Repositório utilizado para o BackEnd da aplicação Vet Sys - Sistema de Gerenciamento de Clínicas Veterinárias. Desenvolvida em Python, Django e Django Rest Framework.
 
 ### Vídeo de apresentação
 
@@ -41,6 +41,11 @@ $ python manage.py migrate
 V.  Rode os Testes.
 ```console
 $ pytest
+```
+
+VI.  Rode a aplicação.
+```console
+$ python manage.py runserver
 ```
 
 
